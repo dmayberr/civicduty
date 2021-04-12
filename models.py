@@ -46,6 +46,13 @@ class User(db.Model):
         nullable=False,
     )
 
+    def __init__(self, username, password, email, residentState, residentCity, residentStreetAddress):
+        self.username = username
+        self.email = email 
+        self.residentState = residentState
+        self.residentCity = residentCity
+        self.residentStreetAddress = residentStreetAddress
+
     @classmethod
     def signup(cls, username, password, email, residentState, residentCity, residentStreetAddress):
         """Register user and hashes password."""
