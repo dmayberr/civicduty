@@ -1,7 +1,7 @@
 import os
-from flask import Flask, request, render_template, url_for, session, Blueprint, make_response, flash, redirect, g
- 
+from flask import Flask, request, render_template, url_for, session, Blueprint, make_response, flash, redirect, g 
 from models import User, connect_db, db
+from forms import UserAddForm
 
 CURR_USER_KEY = "curr_user"
 
@@ -43,7 +43,7 @@ def do_logout():
         del session[CURR_USER_KEY]
 
 
-@app.route('/signup', methods=["GET", "POST"])
+@app.route('/signup', methods=["GET"])
 def signup():
     """Handle user signup.
 
@@ -76,7 +76,7 @@ def signup():
         return redirect("/")
 
     else:
-        return render_template('users/signup.html', form=form)
+        return render_template('register.html', form=form)
 
 
 @app.route('/login', methods=["GET", "POST"])
@@ -107,6 +107,9 @@ def logout():
     flash("You have been successfully logged out.")
     return redirect("/login")
 
+##### Routes #####
+
 @app.route('/')
 def index():
-    return "Testing"
+    form = UserAddForm()
+    return render_template("/index.html", form=form)
