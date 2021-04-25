@@ -2,6 +2,7 @@ import os
 from flask import Flask, request, render_template, url_for, session, Blueprint, make_response, flash, redirect, g 
 from models import User, connect_db, db
 from forms import UserAddForm
+import json
 
 CURR_USER_KEY = "curr_user"
 
@@ -69,14 +70,14 @@ def signup():
 
         except IntegrityError:
             flash("Username already taken", 'danger')
-            return render_template('users/signup.html', form=form)
+            return render_template('signup.html', form=form)
 
         do_login(user)
 
         return redirect("/")
 
     else:
-        return render_template('register.html', form=form)
+        return render_template('signup.html', form=form)
 
 
 @app.route('/login', methods=["GET", "POST"])
