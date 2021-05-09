@@ -10,7 +10,7 @@ CURR_USER_KEY = "curr_user"
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = (
-    os.environ.get('DATABASE_URL', 'postgres:///civicduty'))
+    os.environ.get('DATABASE_URL', 'postgresql:///civicduty'))
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = False
@@ -117,3 +117,9 @@ def logout():
 def index():
     form = UserAddForm()
     return render_template("/index.html", form=form)
+
+@app.route('/users/<int:user_id>')
+def user_homepage(user_id):
+    """Show a page with info on a specific user."""
+
+    
