@@ -7,7 +7,7 @@ db = SQLAlchemy()
 class User(db.Model):
     """Users"""
 
-    __tablename__ = 'Users'
+    __tablename__ = 'users'
 
     id = db.Column(
         db.Integer,

@@ -17,7 +17,12 @@ class UserAddForm(FlaskForm):
     passwordConfirm = PasswordField('Repeat Password')  
     email = StringField('Email', validators=[Email(), DataRequired()])
     residentState = SelectField(u'State', validators=[DataRequired()], choices=us_state_abbrev)
-    residentCity = SelectField('City')
+    residentCity = SelectField('City', validators=[DataRequired()], choices=[])
     residentStreetAddress = StringField('Street Address')
     
+class LoginForm(FlaskForm):
+    """Form to login existing users"""
+
+    username = StringField('username')
+    password = PasswordField('password')
 

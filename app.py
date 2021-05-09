@@ -1,7 +1,7 @@
 import os
 from flask import Flask, request, render_template, url_for, session, Blueprint, make_response, flash, redirect, g 
 from models import User, connect_db, db
-from forms import UserAddForm
+from forms import UserAddForm, LoginForm
 import json
 import geonamescache
 
@@ -100,7 +100,7 @@ def login():
 
         flash("Invalid credentials.", 'danger')
 
-    return render_template('users/login.html', form=form)
+    return render_template('login.html', form=form)
 
 
 @app.route('/logout')
