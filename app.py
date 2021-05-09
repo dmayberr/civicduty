@@ -4,6 +4,7 @@ from models import User, connect_db, db
 from forms import UserAddForm, LoginForm
 import json
 import geonamescache
+from uszipcode import SearchEngine, SimpleZipcode
 
 CURR_USER_KEY = "curr_user"
 
@@ -66,9 +67,11 @@ def signup():
                 password=form.password.data,
                 email=form.email.data,
                 residentState=form.residentState.data,
-                residentCity=form.residentCity.choices,
-                residentStreetAddress=form.residentStreetAddress.data
+                residentCity=form.residentCity.data,
+                residentStreetAddress=form.residentStreetAddress.data,
+                residentZipCode=form.residentZipCode.data
             )
+            
             db.session.commit()
 
         except IntegrityError:

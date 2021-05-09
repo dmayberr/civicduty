@@ -46,12 +46,18 @@ class User(db.Model):
         nullable=False,
     )
 
+    residentZipCode = db.Column(
+        db.Integer,
+        nullable=False,
+        )
+
     def __init__(self, username, password, email, residentState, residentCity, residentStreetAddress):
         self.username = username
         self.email = email 
         self.residentState = residentState
         self.residentCity = residentCity
         self.residentStreetAddress = residentStreetAddress
+        self.residentZipCode = residentZipcode
 
     @classmethod
     def signup(cls, username, password, email, residentState, residentCity, residentStreetAddress):
@@ -66,6 +72,7 @@ class User(db.Model):
             residentState=residentState,
             residentCity=residentCity,
             residentStreetAddress=residentStreetAddress,
+            residentZipCode=residentZipCode,
         )
 
         db.session.add(user)
@@ -99,4 +106,4 @@ def connect_db(app):
     db.app = app
     db.init_app(app)
     
-
+0
