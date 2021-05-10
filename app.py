@@ -2,6 +2,7 @@ import os
 from flask import Flask, request, render_template, url_for, session, Blueprint, make_response, flash, redirect, g 
 from models import User, connect_db, db
 from forms import UserAddForm, LoginForm
+from sqlalchemy.exc import IntegrityError
 import json
 import geonamescache
 from uszipcode import SearchEngine, SimpleZipcode
@@ -46,7 +47,7 @@ def do_logout():
         del session[CURR_USER_KEY]
 
 
-@app.route('/signup', methods=["GET"])
+@app.route('/signup', methods=["GET", "POST"])
 def signup():
     """Handle user signup.
 
@@ -71,8 +72,8 @@ def signup():
                 residentStreetAddress=form.residentStreetAddress.data,
                 residentZipCode=form.residentZipCode.data
             )
-            
             db.session.commit()
+            db.session.flush()
 
         except IntegrityError:
             flash("Username already taken", 'danger')
@@ -80,7 +81,7 @@ def signup():
 
         do_login(user)
 
-        return redirect("/")
+        return redirect("/users/")
 
     else:
         return render_template('signup.html', form=form)
@@ -91,7 +92,6 @@ def login():
     """Handle user login."""
 
     form = LoginForm()
-
     if form.validate_on_submit():
         user = User.authenticate(form.username.data,
                                  form.password.data)
@@ -101,8 +101,8 @@ def login():
             flash(f"Hello, {user.username}!", "success")
             return redirect("/")
 
-        flash("Invalid credentials.", 'danger')
-
+        flash("Invalid credentials.", 'danger')    
+    
     return render_template('login.html', form=form)
 
 
@@ -121,8 +121,14 @@ def index():
     form = UserAddForm()
     return render_template("/index.html", form=form)
 
-@app.route('/users/<int:user_id>')
-def user_homepage(user_id):
+@app.route('/users/<int:id>')
+def user_homepage(id):
     """Show a page with info on a specific user."""
+    
+    user = User.query.get_or_404(id)
+    
+    print("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD")
+    print(user.residentState)
+    return render_template('/users/home.html', user=user)
 
     

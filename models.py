@@ -51,23 +51,24 @@ class User(db.Model):
         nullable=False,
         )
 
-    def __init__(self, username, password, email, residentState, residentCity, residentStreetAddress):
+    def __init__(self, username, password, email, residentState, residentCity, residentStreetAddress, residentZipCode):
         self.username = username
+        self.password = password
         self.email = email 
         self.residentState = residentState
         self.residentCity = residentCity
         self.residentStreetAddress = residentStreetAddress
-        self.residentZipCode = residentZipcode
+        self.residentZipCode = residentZipCode
 
     @classmethod
-    def signup(cls, username, password, email, residentState, residentCity, residentStreetAddress):
+    def signup(cls, username, password, email, residentState, residentCity, residentStreetAddress, residentZipCode):
         """Register user and hashes password."""
 
         hashed_pwd = bcrypt.generate_password_hash(password).decode('UTF-8')
 
         user = User(
             username=username,
-            password=password,
+            password=hashed_pwd,
             email=email,
             residentState=residentState,
             residentCity=residentCity,
@@ -76,7 +77,7 @@ class User(db.Model):
         )
 
         db.session.add(user)
-        return username
+        return username, residentState
     
     @classmethod
     def authenticate(cls, username, password):
@@ -106,4 +107,4 @@ def connect_db(app):
     db.app = app
     db.init_app(app)
     
-0
+

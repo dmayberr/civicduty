@@ -1,12 +1,10 @@
 {% extends 'base.html' %}
 
-{% block content %}
-
-<div>
+{% block content %}  
     <div class="row justify-content-md-center">
         <div class="col-md-7 col-lg-5">
           <h2 class="join-message">Register here!</h2>
-          <form method="GET" id="user_form">
+          <form method="POST" id="user_form">
             {{ form.hidden_tag() }}
       
             {% for field in form if field.widget.input_type != 'hidden' %}
