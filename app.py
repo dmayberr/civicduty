@@ -6,11 +6,14 @@ from sqlalchemy.exc import IntegrityError
 import json
 import geonamescache
 from uszipcode import SearchEngine, SimpleZipcode
+from data import api_key
 
 CURR_USER_KEY = "curr_user"
+API_URL = "https://www.googleapis.com/civicinfo/v2/representatives"
+key = api_key
 
 app = Flask(__name__)
-
+0
 app.config['SQLALCHEMY_DATABASE_URI'] = (
     os.environ.get('DATABASE_URL', 'postgresql:///civicduty'))
 
@@ -90,16 +93,16 @@ def signup():
 @app.route('/login', methods=["GET", "POST"])
 def login():
     """Handle user login."""
-
+    id = g.user.id
     form = LoginForm()
     if form.validate_on_submit():
         user = User.authenticate(form.username.data,
                                  form.password.data)
 
-        if user:
+        if user:            
             do_login(user)
             flash(f"Hello, {user.username}!", "success")
-            return redirect("/")
+            return redirect(f"/users/{id}")
 
         flash("Invalid credentials.", 'danger')    
     
@@ -126,9 +129,12 @@ def user_homepage(id):
     """Show a page with info on a specific user."""
     
     user = User.query.get_or_404(id)
-    
-    print("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD")
-    print(user.residentState)
+
     return render_template('/users/home.html', user=user)
 
-    
+##### API Requests #####
+
+
+
+
+ 
