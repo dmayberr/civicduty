@@ -6,14 +6,14 @@ from sqlalchemy.exc import IntegrityError
 import json
 import geonamescache
 from uszipcode import SearchEngine, SimpleZipcode
-from data import api_key
+from dotenv import load_dotenv, dotenv_values
 
 CURR_USER_KEY = "curr_user"
-API_URL = "https://www.googleapis.com/civicinfo/v2/representatives"
-key = api_key
+API_URL = "https://www.googleapis.com/civicinfo/v2/representatives/"
+key = load_dotenv()
 
 app = Flask(__name__)
-0
+
 app.config['SQLALCHEMY_DATABASE_URI'] = (
     os.environ.get('DATABASE_URL', 'postgresql:///civicduty'))
 
@@ -125,14 +125,26 @@ def index():
     return render_template("/index.html", form=form)
 
 @app.route('/users/<int:id>')
-def user_homepage(id):
+def user_homepage(id, residentState, residentCity, residentStreetAddress, residentZipCode):
     """Show a page with info on a specific user."""
     
     user = User.query.get_or_404(id)
+    state = User.query.get_or_404(residentState)
+    city = User.query.get_or_404(residentCity)
+    streetAddress = User.query.get_or_404(residentStreetAddress)
+    zipCode = User.query.get_or_404(residentZipCode)
 
-    return render_template('/users/home.html', user=user)
+    resp = request.get(f"{API_URL}",
+        params={'key': key, 'address': residentStreetAddress, 'includeOffices': True, 
+            'levels': "country", 'roles': "legislatorLowerBody"})
+
+    rep = resp.json()
+    print(rep)
+
+    return render_template('/users/home.html', user=user, )
 
 ##### API Requests #####
+
 
 
 
