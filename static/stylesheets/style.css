@@ -1,3 +1,11 @@
-.main-content {
-    background-color: linear-gradient(white, blue)
+body {
+    background: url('https://images.pexels.com/photos/37646/new-york-skyline-new-york-city-city-37646.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+    opacity: 1;
+    width: 1920px;
+    height: 1280px;   
+
+}
+
+#navbar {
+    color: #fff;
 }

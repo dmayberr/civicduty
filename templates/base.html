@@ -18,10 +18,13 @@
   <link rel="shortcut icon" href="/static/favicon.ico">
 </head>
 
-<body class="container main-content">
+<body class="container">
+  <div class="navbar">
+    {% block navbar %}
+    {% endblock %}
+  </div>
   
-  {% block navbar %} 
-  {% endblock %}
+
   <div class="container">
     {% for category, message in get_flashed_messages(with_categories=True) %}
     <div class="alert alert-{{ category }}">
@@ -29,8 +32,11 @@
     </div>
     {% endfor %}
   </div>
-  {% block content %}
-  {% endblock %}  
+  <div class="main-content">
+    {% block content %}
+    {% endblock %}
+  </div>
+    
   
 </body>
 </html>

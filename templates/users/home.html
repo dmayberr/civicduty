@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
+{% block navbar %}
 {% include 'navbars/loggedin.html' %}
+{% endblock %}
 
 {% block content %}
   
@@ -14,7 +16,7 @@
           A citizen of the great State of:  <h5>{{user.residentState}}</h5>
         </p>  
         <p class="h6">
-          City or town of:  <h5>{{user.residentCity}}</h5>
+          City or town of:  <h5>{{user.residentCity}}</h5>0
         </p>  
         <p class="h6">
           Zip Code:  <h5>{{user.residentZipCode}}</h5>
