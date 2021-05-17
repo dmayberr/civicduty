@@ -13,3 +13,7 @@ body {
     color: #fff;
     font-weight: bold;
 }
+
+#signup, #login {
+    color: #fff;
+}

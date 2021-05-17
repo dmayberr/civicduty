@@ -137,12 +137,20 @@ def user_homepage(id):
     user_pres = {'key': key, 'address': address, 'includeOffices': True, 'levels': "country", 'roles': "headOfState"}
     req = request.get_json()
     r = requests.get(API_URL, params=user_pres).json()
-    name = r['officials'][0]['name']
-    office = r['offices'][0]['name']
-    party = r['officials'][0]['party']
+    name_pres = r['officials'][0]['name']
+    office_pres = r['offices'][0]['name']
+    party_pres = r['officials'][0]['party']
+
+    user_senators = {'key': key, 'address': address, 'includeOffices': True, 'levels': "country", 'roles': "legislatorUpperBody"}
+    req = request.get_json()
+    r = requests.get(API_URL, params=user_pres).json()
+    name_sen1 = r['officials'][0]['name']
+    office_sen1 = r['offices'][0]['name']
+    party_sen1 = r['officials'][0]['party']
     
     
-    return render_template('/users/home.html', user=user, name=name, office=office, party=party)
+    return render_template('/users/home.html', user=user, name_pres=name_pres, office_pres=office_pres, party_pres=party_pres,
+        name_sen1=name_sen1, office_sen1=office_sen1, party_sen1=party_sen1)
 
 ##### API Requests #####
 

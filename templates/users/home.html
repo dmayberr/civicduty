@@ -6,7 +6,7 @@
 
 {% block content %}
   
-<div class="row">
+<div class="row" style="margin-left: 50px">
   <div class="col col-4" id="user-card">    
     <div class="card" style="width: 18rem;">    
       <img src='/static/images/state_flags/{{user.residentState}}.svg' class="card-img-top" alt="...">
@@ -33,25 +33,47 @@
     <div class="card" style="width: 18rem;">    
       <img src='/static/images/seal-of-the-president-us.svg' class="card-img-top" alt="...">
       <div class="card-body">
-        <h5 class="card-title">{{ name }}</h5>      
+        <h5 class="card-title">{{ name_pres }}</h5>      
         <p class="h6">
-          Elected Office:  <h5>{{ office }}</h5>
+          Elected Office:  <h5>{{ office_pres }}</h5>
         </p>  
         <p class="h6">
-          Political Party:  <h5>{{ party }}</h5>
+          Political Party:  <h5>{{ party_pres }}</h5>
         </p>            
       </div>
     </div>
   </div>
-
 </div>
+
 <div class="row">
   <div class="col col-4">    
     
   </div>
-  <div class="col" id="senators">
-    {{ r }}
-    
+
+  <div class="card" style="width: 18rem; margin: 20px">    
+    <img src='/static/images/seal-of-the-president-us.svg' class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">{{ name_sen1 }}</h5>      
+      <p class="h6">
+        Elected Office:  <h5>{{ office_sen1 }}</h5>
+      </p>  
+      <p class="h6">
+        Political Party:  <h5>{{ party_sen1 }}</h5>
+      </p>            
+    </div>
+  </div>
+
+  <div class="card" style="width: 18rem; margin: 20px">    
+    <img src='/static/images/seal-of-the-president-us.svg' class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">{{ name_sen1 }}</h5>      
+      <p class="h6">
+        Elected Office:  <h5>{{ office_sen1 }}</h5>
+      </p>  
+      <p class="h6">
+        Political Party:  <h5>{{ party_sen1 }}</h5>
+      </p>            
+    </div>
   </div>
 
 </div>
