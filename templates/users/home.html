@@ -16,7 +16,7 @@
           A citizen of the great State of:  <h5>{{user.residentState}}</h5>
         </p>  
         <p class="h6">
-          City or town of:  <h5>{{user.residentCity}}</h5>0
+          City or town of:  <h5>{{user.residentCity}}</h5>
         </p>  
         <p class="h6">
           Zip Code:  <h5>{{user.residentZipCode}}</h5>
@@ -24,8 +24,24 @@
       </div>
     </div>
   </div>
-  <div class="col" id="president">
 
+  <div class="col col-4" id="spacer" style="width: 10rem">
+
+  </div>
+
+  <div class="col col-4" id="president-card" style="width: 18rem">    
+    <div class="card" style="width: 18rem;">    
+      <img src='/static/images/seal-of-the-president-us.svg' class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{ name }}</h5>      
+        <p class="h6">
+          Elected Office:  <h5>{{ office }}</h5>
+        </p>  
+        <p class="h6">
+          Political Party:  <h5>{{ party }}</h5>
+        </p>            
+      </div>
+    </div>
   </div>
 
 </div>
@@ -34,7 +50,8 @@
     
   </div>
   <div class="col" id="senators">
-
+    {{ r }}
+    
   </div>
 
 </div>

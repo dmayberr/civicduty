@@ -77,7 +77,7 @@ class User(db.Model):
         )
 
         db.session.add(user)
-        return username, residentState
+        return username, residentState, residentCity, residentStreetAddress, residentZipCode
     
     @classmethod
     def authenticate(cls, username, password):

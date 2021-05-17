@@ -30,6 +30,7 @@ ipython-genutils==0.2.0
 itsdangerous==1.1.0
 jedi==0.18.0
 Jinja2==2.11.3
+jsonify==0.5
 MarkupSafe==1.1.1
 matplotlib-inline==0.1.2
 mimerender==0.6.0

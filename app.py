@@ -1,17 +1,19 @@
 import os
-from flask import Flask, request, render_template, url_for, session, Blueprint, make_response, flash, redirect, g 
+from flask import Flask, jsonify, request, render_template, url_for, session, Blueprint, make_response, flash, redirect, g 
 from models import User, connect_db, db
 from forms import UserAddForm, LoginForm
 from sqlalchemy.exc import IntegrityError
-import json
+import requests
+import jsonify
 import geonamescache
 from uszipcode import SearchEngine, SimpleZipcode
 from dotenv import load_dotenv, dotenv_values
+from data import api_key
 
 CURR_USER_KEY = "curr_user"
 API_URL = "https://www.googleapis.com/civicinfo/v2/representatives/"
-key = load_dotenv()
-
+# key = load_dotenv()
+key = api_key
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = (
@@ -39,8 +41,9 @@ def add_user_to_g():
 
 def do_login(user):
     """Log in user."""
-
+    
     session[CURR_USER_KEY] = user.id
+    
 
 
 def do_logout():
@@ -106,7 +109,7 @@ def login():
 
         flash("Invalid credentials.", 'danger')    
     
-        return render_template('login.html', form=form)
+    return render_template('login.html', form=form)
 
 
 @app.route('/logout')
@@ -124,29 +127,34 @@ def index():
     form = UserAddForm()
     return render_template("/index.html", form=form)
 
-@app.route('/users/<int:id>')
-def user_homepage(id, residentState, residentCity, residentStreetAddress, residentZipCode):
+@app.route('/users/<int:id>', methods=["GET", "POST"])
+def user_homepage(id):
     """Show a page with info on a specific user."""
     
-    user = User.query.get_or_404(id)
-    state = User.query.get_or_404(residentState)
-    city = User.query.get_or_404(residentCity)
-    streetAddress = User.query.get_or_404(residentStreetAddress)
-    zipCode = User.query.get_or_404(residentZipCode)
+    user = User.query.get(id)    
+    address = user.residentStreetAddress
 
-    resp = request.get(f"{API_URL}",
-        params={'key': key, 'address': residentStreetAddress, 'includeOffices': True, 
-            'levels': "country", 'roles': "legislatorLowerBody"})
-
-    rep = resp.json()
-    print(rep)
-
-    return render_template('/users/home.html', user=user, )
+    user_pres = {'key': key, 'address': address, 'includeOffices': True, 'levels': "country", 'roles': "headOfState"}
+    req = request.get_json()
+    r = requests.get(API_URL, params=user_pres).json()
+    name = r['officials'][0]['name']
+    office = r['offices'][0]['name']
+    party = r['officials'][0]['party']
+    
+    
+    return render_template('/users/home.html', user=user, name=name, office=office, party=party)
 
 ##### API Requests #####
 
+def requestSenators(address):
+
+    user = User.query.get_or_404(id)   
 
 
+    userInfo = {'key': key, 'address': address, 'includeOffices': True, 'levels': "country", 'roles': "legislatorLowerBody"}
+    r = requests.get(API_URL, params=userInfo)
 
-
- 
+    data = r.json()
+    
+    
+    return jsonify(data)
