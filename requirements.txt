@@ -21,6 +21,7 @@ Flask-SQLAlchemy==2.5.1
 Flask-WTF==0.14.3
 geonamescache==1.2.0
 greenlet==1.0.0
+gunicorn==20.1.0
 idna==2.10
 importlib-metadata==3.10.0
 infinity==1.5
