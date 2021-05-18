@@ -135,34 +135,66 @@ def user_homepage(id):
     address = user.residentStreetAddress
 
     user_pres = {'key': key, 'address': address, 'includeOffices': True, 'levels': "country", 'roles': "headOfState"}
-    req = request.get_json()
+    
     r = requests.get(API_URL, params=user_pres).json()
     name_pres = r['officials'][0]['name']
     office_pres = r['offices'][0]['name']
     party_pres = r['officials'][0]['party']
 
+    user_vp = {'key': key, 'address': address, 'includeOffices': True, 'levels': "country", 'roles': "deputyHeadOfGovernment"}
+    
+    r = requests.get(API_URL, params=user_vp).json()
+    name_vp = r['officials'][0]['name']
+    lastname_vp = getLastName(name_vp)
+    office_vp = r['offices'][0]['name']
+    party_vp = r['officials'][0]['party']
+
     user_senators = {'key': key, 'address': address, 'includeOffices': True, 'levels': "country", 'roles': "legislatorUpperBody"}
-    req = request.get_json()
-    r = requests.get(API_URL, params=user_pres).json()
+    
+    r = requests.get(API_URL, params=user_senators).json()
     name_sen1 = r['officials'][0]['name']
+    lastname_sen1 = getLastName(name_sen1)
     office_sen1 = r['offices'][0]['name']
     party_sen1 = r['officials'][0]['party']
+
+    r = requests.get(API_URL, params=user_senators).json()
+    name_sen2 = r['officials'][1]['name']
+    lastname_sen2 = getLastName(name_sen2)
+    office_sen2 = r['offices'][0]['name']
+    party_sen2 = r['officials'][0]['party']
+
+    user_rep = {'key': key, 'address': address, 'includeOffices': True, 'levels': "country", 'roles': "legislatorLowerBody"}
+
+    r = requests.get(API_URL, params=user_rep).json()
+    name_rep = r['officials'][0]['name']
+    lastname_rep = getLastName(name_rep)
+    office_rep = r['offices'][0]['name']
+    party_rep = r['officials'][0]['party']
     
     
-    return render_template('/users/home.html', user=user, name_pres=name_pres, office_pres=office_pres, party_pres=party_pres,
-        name_sen1=name_sen1, office_sen1=office_sen1, party_sen1=party_sen1)
+    return render_template('/users/home.html', user=user, 
+        name_pres=name_pres, office_pres=office_pres, party_pres=party_pres,
+        name_vp=name_vp, office_vp=office_vp, party_vp=party_vp, lastname_vp=lastname_vp,
+        name_sen1=name_sen1, office_sen1=office_sen1, party_sen1=party_sen1, lastname_sen1=lastname_sen1,
+        name_sen2=name_sen2, office_sen2=office_sen2, party_sen2=party_sen2, lastname_sen2=lastname_sen2,
+        name_rep=name_rep, office_rep=office_rep, party_rep=party_rep, lastname_rep=lastname_rep)
 
 ##### API Requests #####
 
-def requestSenators(address):
+# def requestSenators(address):
 
-    user = User.query.get_or_404(id)   
+#     user = User.query.get_or_404(id)   
 
 
-    userInfo = {'key': key, 'address': address, 'includeOffices': True, 'levels': "country", 'roles': "legislatorLowerBody"}
-    r = requests.get(API_URL, params=userInfo)
+#     userInfo = {'key': key, 'address': address, 'includeOffices': True, 'levels': "country", 'roles': "legislatorLowerBody"}
+#     r = requests.get(API_URL, params=userInfo)
 
-    data = r.json()
+#     data = r.json()
     
     
-    return jsonify(data)
+#     return jsonify(data)
+
+def getLastName(string):
+    li = list(string.split(" "))
+    lastname = li[-1].lower()
+    return lastname

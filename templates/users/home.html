@@ -29,16 +29,29 @@
 
   </div>
 
-  <div class="col col-4" id="president-card" style="width: 18rem">    
-    <div class="card" style="width: 18rem;">    
+  <div class="col col-4" style="width: 18rem">    
+    <div class="card" style="width: 18rem; margin: 20px" id="president-card">
       <img src='/static/images/seal-of-the-president-us.svg' class="card-img-top" alt="...">
       <div class="card-body">
-        <h5 class="card-title">{{ name_pres }}</h5>      
+        <a href="https://www.whitehouse.gov/"><h5 class="card-title">{{ name_pres }}</h5></a>              
         <p class="h6">
           Elected Office:  <h5>{{ office_pres }}</h5>
         </p>  
         <p class="h6">
           Political Party:  <h5>{{ party_pres }}</h5>
+        </p>            
+      </div>
+    </div>
+
+    <div class="card" style="width: 18rem; margin: 20px" id="vp-card">    
+      <img src='/static/images/us-vice-president-seal.svg' class="card-img-top" alt="...">
+      <div class="card-body">
+        <a href="https:whitehouse.gov/administration/vice-president-{{ lastname_vp }}"><h5 class="card-title">{{ name_vp }}</h5></a>      
+        <p class="h6">
+          Elected Office:  <h5>{{ office_vp }}</h5>
+        </p>  
+        <p class="h6">
+          Political Party:  <h5>{{ party_vp }}</h5>
         </p>            
       </div>
     </div>
@@ -50,10 +63,17 @@
     
   </div>
 
-  <div class="card" style="width: 18rem; margin: 20px">    
-    <img src='/static/images/seal-of-the-president-us.svg' class="card-img-top" alt="...">
+  
+
+  <div class="row">
+    <div class="col col-4">    
+      
+    </div>
+
+  <div class="card" style="width: 18rem; margin: 20px" id="senator1-card">    
+    <img src='/static/images/state_flags/{{ user.residentState }}.svg' class="card-img-top" alt="...">
     <div class="card-body">
-      <h5 class="card-title">{{ name_sen1 }}</h5>      
+      <a href="https://www.{{lastname_sen1}}.senate.gov/"><h5 class="card-title">{{ name_sen1 }}</h5></a>            
       <p class="h6">
         Elected Office:  <h5>{{ office_sen1 }}</h5>
       </p>  
@@ -63,18 +83,38 @@
     </div>
   </div>
 
-  <div class="card" style="width: 18rem; margin: 20px">    
-    <img src='/static/images/seal-of-the-president-us.svg' class="card-img-top" alt="...">
+  <div class="card" style="width: 18rem; margin: 20px" id="senator2-card">    
+    <img src='/static/images/state_flags/{{ user.residentState }}.svg' class="card-img-top" alt="...">
     <div class="card-body">
-      <h5 class="card-title">{{ name_sen1 }}</h5>      
+      <a href="https://www.{{lastname_sen2}}.senate.gov/"><h5 class="card-title">{{ name_sen2 }}</h5></a>            
       <p class="h6">
-        Elected Office:  <h5>{{ office_sen1 }}</h5>
+        Elected Office:  <h5>{{ office_sen2 }}</h5>
       </p>  
       <p class="h6">
-        Political Party:  <h5>{{ party_sen1 }}</h5>
+        Political Party:  <h5>{{ party_sen2 }}</h5>
       </p>            
     </div>
   </div>
+
+</div>
+
+<div class="row">
+  <div class="col col-4">    
+    
+  </div>
+
+  <div class="card" style="width: 18rem; margin: 20px" id="representative-card">    
+    <img src='/static/images/state_flags/{{ user.residentState }}.svg' class="card-img-top" alt="...">
+    <div class="card-body">
+      <a href="https://{{ lastname_rep }}.house.gov/"><h5 class="card-title">{{ name_rep }}</h5></a>      
+      <p class="h6">
+        Elected Office:  <h5>{{ office_rep }}</h5>
+      </p>  
+      <p class="h6">
+        Political Party:  <h5>{{ party_rep }}</h5>
+      </p>            
+    </div>
+  </div> 
 
 </div>
 
