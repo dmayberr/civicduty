@@ -4,8 +4,6 @@ from models import User, connect_db, db
 from forms import UserAddForm, LoginForm
 from sqlalchemy.exc import IntegrityError
 import requests
-import jsonify
-import geonamescache
 from uszipcode import SearchEngine, SimpleZipcode
 from dotenv import load_dotenv, dotenv_values
 from data import api_key
@@ -14,7 +12,9 @@ CURR_USER_KEY = "curr_user"
 API_URL = "https://www.googleapis.com/civicinfo/v2/representatives/"
 # key = load_dotenv()
 key = api_key
-app = Flask(__name__)
+app = Flask(__name__, instance_relative_config=True)
+app.config.from_object('config')
+app.config.from_pyfile('config.py')
 
 app.config['SQLALCHEMY_DATABASE_URI'] = (
     os.environ.get('DATABASE_URL', 'postgresql:///civicduty'))
@@ -196,5 +196,5 @@ def user_homepage(id):
 
 def getLastName(string):
     li = list(string.split(" "))
-    lastname = li[-1].lower()
+    lastname = li[-01].lower()
     return lastname

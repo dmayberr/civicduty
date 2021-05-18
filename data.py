@@ -5,9 +5,8 @@ from openpyxl.worksheet.table import Table, TableStyleInfo
 
 wb = load_workbook('uscitiesandstates.xlsx')
 
-api_key = 'AIzaSyClbGDLVoshWf27fLZraUyGmCDhpo0UK1w'
 
-### ZipCodeAPI.com key = X5cU6oftgmiIWkrMMyfghR3jR5QFEEZtv1phEbUAO22pLde7rxK3EsGvhhSXGZfR ###
+
 
 
 
