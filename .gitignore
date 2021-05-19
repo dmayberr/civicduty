@@ -3,4 +3,7 @@
 /venv
 /Cap1_Project
 /instance
+/heroku
+config.py
+.env
 
